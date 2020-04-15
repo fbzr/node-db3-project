@@ -9,8 +9,8 @@ const findSteps = scheme_id => {
 }
 
 const add = async scheme => {
-    const responseId = await db('schemes').insert(scheme);
-    return db('schemes').where({ id: responseId[0] }).first();
+    const responseId = await db('schemes').insert(scheme, 'id');
+    return findById(responseId[0]);
 }
 
 const update = async (changes, id) => {
@@ -18,7 +18,7 @@ const update = async (changes, id) => {
         ...changes,
         id
     });
-    return db('schemes').where({ id }).first();
+    return findById(id);
 }
 
 const remove = async id => {

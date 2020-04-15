@@ -32,3 +32,25 @@ JOIN Customer AS C
 ON O.CustomerId = C.Id
 JOIN Employee AS E
 ON O.EmployeeId = E.Id;
+
+
+-- Stretch Problems
+-- In [SQL Try Editor at W3Schools.com](https://www.w3schools.com/Sql/tryit.asp?filename=trysql_select_top):
+
+-- Displays CategoryName and a new column called Count that shows how many products are in each category. Shows 8 records.
+SELECT CategoryName
+, CategoryCount
+FROM Categories as Cat
+JOIN 
+(SELECT Count (*) AS CategoryCount, CategoryID FROM Products GROUP BY CategoryID) as CT
+ON Cat.CategoryID = CT.CategoryID;
+
+-- Display OrderID and a column called ItemCount that shows the total number of products placed on the order. Shows 196 records.
+SELECT OrderID
+, COUNT(ProductID) AS "Number of products"
+FROM OrderDetails 
+GROUP BY OrderID;
+
+-- -   Add the following method to your API
+--     -   `addStep(step, scheme_id)`: This method expects a step object and a scheme id. It inserts the new step into the database, correctly linking it to the intended scheme.
+--     -   You may use `POST /api/schemes/:id/addStep` to test this method.
