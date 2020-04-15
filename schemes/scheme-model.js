@@ -8,6 +8,14 @@ const findSteps = scheme_id => {
     return db('steps').where({ scheme_id });
 }
 
+const addStep = async (step, scheme_id) => {
+    const responseId = await db('steps').insert({
+        ...step,
+        scheme_id
+    }, 'id');
+    return db('steps').where({ id: responseId[0] }).first();
+}
+
 const add = async scheme => {
     const responseId = await db('schemes').insert(scheme, 'id');
     return findById(responseId[0]);
@@ -33,5 +41,6 @@ module.exports = {
     findSteps,
     add,
     update,
-    remove
+    remove,
+    addStep
 }
