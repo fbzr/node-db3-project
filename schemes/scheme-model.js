@@ -5,7 +5,10 @@ const find = () => db('schemes');
 const findById = id => db('schemes').where({id}).first();
 
 const findSteps = scheme_id => {
-    return db('steps').where({ scheme_id });
+    return db('steps')
+    .join('schemes', 'schemes.id', 'steps.scheme_id')
+    .where({ scheme_id }).orderBy('step_number')
+    .select('steps.id', 'schemes.scheme_name', 'steps.step_number', 'steps.instructions');
 }
 
 const addStep = async (step, scheme_id) => {
